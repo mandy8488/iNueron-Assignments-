@@ -1,0 +1,45 @@
+----------- creating the warehouse--------------------------
+create warehouse assignment
+----------- created the data base --------------------------
+create database Assignemt 
+----------- created the table     --------------------------
+create table shopping_history_Mdeep(
+product varchar(50) not null ,
+quantity int not null ,
+unit_price int not null);
+select * from shopping_history_Mdeep
+----------- inserted the values   --------------------------
+insert into shopping_history_Mdeep values ('door mat',1,350),('corn flaks',2,89),('dairy milk',3,20),('brown bread',1,32),('vatiak hair oil',1,125)
+---------        Task 1           --------------------------
+select product,sum(quantity*unit_price)  as total_price from shopping_history_Mdeep group by 1 order by product desc
+---------        Task 2           --------------------------
+create table phones(
+name varchar (20) not null unique,
+phone_number int not null unique);
+
+create table calls(
+id int not null ,
+caller int not null,
+calle int not null,
+duration int not null,
+unique(id))
+select * from calls
+
+select * from calls
+truncate table calls
+select name from 
+(select phones.name , phones.phone_number,calls.caller,calls.duration
+from calls 
+left join phones  on calls.caller = phones.phone_number
+order by phones.name) where duration >= 10
+----------------- Task 3 --------------------------------------
+create table trans (
+amount int not null,
+datec date not null )
+select * from trans
+ 
+select sum(amount) - (select (12 - (select count(mandy) from 
+(select count(datec) as mandy from trans group by month(datec)))) * 5  as kandy )
+-(select count(monthofdate)*5 as mandy from (select month(datec) as monthofdate,count(datec)as nooftranswithcredit,
+sum(amount)as amount from trans where amount < 0 group by month(datec))
+  where nooftranswithcredit < 3 or amount < -100 ) as balance from trans
