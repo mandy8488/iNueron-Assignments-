@@ -1,0 +1,42 @@
+
+--------- Evaluate Accident Severity and Total Accidents per Vehicle Type -------------
+select accident_severity as Accident_Severity ,count(accident_index)  as total_accidents , car as vehicle_type from (select accident.accident_index,accident.accident_severity,code_number,car from
+accident
+left join(select vehicles.accident_index as accident_index ,vehicles.vehicle_type as code_number ,vehicle_types.vehicle_type as car
+from vehicles
+left join vehicle_types
+on vehicles.vehicle_type = vehicle_types.vehicle_code) as mandy
+on accident.accident_index = mandy.accident_index) as kandy group by car
+
+--------- Calculate the Average Severity by vehicle type -------------
+select  avg(accident_severity), car as vehicle_type from (select accident.accident_index,accident.accident_severity,code_number,car from
+accident
+left join(select vehicles.accident_index as accident_index ,vehicles.vehicle_type as code_number ,vehicle_types.vehicle_type as car
+from vehicles
+left join vehicle_types
+on vehicles.vehicle_type = vehicle_types.vehicle_code) as mandy
+on accident.accident_index = mandy.accident_index) as kandy group by car
+--------- Calculate the Average Severity and Total Accidents by Motorcycle. -------------
+select avg(accident_severity) as avg_accident_severity, count(accident_index)  as total_accidents from (select accident.accident_index,accident.accident_severity,code_number,car from
+accident
+left join(select vehicles.accident_index as accident_index ,vehicles.vehicle_type as code_number ,vehicle_types.vehicle_type as car
+from vehicles
+left join vehicle_types
+on vehicles.vehicle_type = vehicle_types.vehicle_code) as mandy
+on accident.accident_index = mandy.accident_index) as kandy where car like 'Motor%'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
